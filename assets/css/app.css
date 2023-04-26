@@ -1,0 +1,350 @@
+/* Global */
+.section-content{
+    padding: 4rem 0;
+}
+.shadow-xl {
+    box-shadow: 0 1rem 2.5rem -0.8rem rgba(0, 0, 0, 0.56), 0 0.25rem 1.5rem rgba(0, 0, 0, 0.12), 0 0.5rem 0.75rem -0.3rem rgba(0, 0, 0, 0.2);
+}
+
+/* Top section */
+/* 배경이미지를 정했으면 반드시 속성도 같이 지정한다 */
+/* position은 bs의 클래스로 지정해도 된다. relative로 정함은 위에 
+색상을 입힐 overlay층을 딱 맞추어 absolute라 정하기 때문 */
+#church-branch {
+    font-size: 0.8rem;
+}
+
+#church-name {
+    font-size: 1.3rem;
+}
+
+.overlay{
+    left:0;
+    top:0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#top{
+    background-image: url("../images/cross_holy_spirit.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:80vh;
+    position: relative;
+}
+
+#top .overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+
+    /* background-color: rgba(0, 0, 0, .65); */
+}
+
+#top .divider{
+    width: 10%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-top: 2px solid #fff;
+}
+
+/* bs의 .p-5라도 3rem 밖에 안된다. 그래서 그 외의 간격은 css로 하는 것이 좋다 */
+#top .welcome{
+    padding-right: 8rem;
+    color: #fff;
+}
+
+/* 그런데 이 우측 패딩 8rem이 모바일 크기에서도 유지되어 불균형이 일어난다. 미디어 쿼리를 이용한다 */
+/* max-width:767 즉, sm이하라는 뜻 */
+/* 위에 지정되었던 8rem이라도 다시 세부지정에서 한정된다 */
+@media screen and (max-width:767px){
+    #top {
+        height:120vh;
+    }
+
+    #top .welcome {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #top .welcome-title {
+        font-size: 1.3rem;
+    }
+
+    #services .service-text {
+        font-size: 1.2rem;
+    }
+}
+
+#intro .intro-first-card{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    height: 12rem;
+}
+
+#intro .col-12:nth-of-type(1) .intro-first-card{
+    background-image: url("../images/bg1.jpg");
+}
+
+#intro .col-12:nth-of-type(2) .intro-first-card{
+    background-image: url("../images/pastor.jpg");
+}
+
+/* #intro .col-6:nth-of-type(3) .intro-first-card{
+    background-image: url("../images/bg3.jpg");
+}
+
+#intro .col-6:nth-of-type(4) .intro-first-card{
+    background-image: url("../images/bg4.jpg");
+} */
+
+/* bs에서 .text-secondary로 색상을 지정하면 a:hover와 같이 가상 클래스에서 색상변화를 줄 수 없다
+css에서 정한 것만 되는 것 같다. */
+#intro .intro-first-card .overlay a{
+    color:rgb(230, 230, 230);
+    transition: color 0.4s ease;
+}
+
+#intro .intro-first-card .overlay a:hover{
+    color: rgb(224, 255, 153);
+    /* font-weight: bold; */
+}
+
+/* #top과는 배경색상에서 이미 구분되도록 작성 */
+#services{
+    background-color: rgba(96, 125, 139,0.1);
+}
+
+/* 구분선은 div에 설정되어 있으므로 박스형태이다. 이 중에서 상단 경계만 나타내도록 했다 */
+#services .divider{
+    width:10%;
+    margin:2rem auto;
+    border-top:0.5rem solid rgb(255, 112, 3);
+}
+/* 카드에 마우스를 올리면 살짝 위로 올라간다. 이것은 슬릭 커라우젤이 하는 것이 아니라, css에서 담당해야 한다 */
+#services .services-col .card {
+    transition: all 0.4s ease;
+}
+
+#services .services-col .card:hover {
+    /* 세로축에서 .8rem만큼 살짝 위로 이동 */
+    transform:translateY(-0.8rem);
+    /* 박스 쉐도우의 속성은 inset x offset y offset blur-radius spread-radius color */
+    /* 이 때 인셋이 있으면 아래로 움푹 들어간 것처럼 그림자가 그려진다. 0은 작성하지 않아도 된다. */
+    /* 콤마로써 구분하여 두개 이상 적으면 중복 그림자가 된다 */
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+#services .services-col img {
+    height: 13rem;
+    /* object- 와 같은 속성은 background-image가 아닌 object의 핏과 위치를 정해 준다 */
+    object-fit: cover;
+    object-position: center;
+}
+
+#testimony {
+    background-image: url("../images/bible.jpg");
+    background-position: center;
+    background-size: cover;
+    height:70vh;
+}
+
+#testimony .testimony-card {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #000;
+    transition: all 0.4s ease;
+}
+
+#testimony .testimony-card:hover {
+    background-color: #fff;
+}
+
+#gallery {
+    background-color: rgba(96, 125, 139, 0.35);
+}
+
+#gallery .divider {
+    width : 10%;
+    margin : 2rem auto;
+    border-top: 2px solid #000;
+}
+
+#gallery .gallery-item .card {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 12rem;
+    transition: .35s ease-in-out;
+}
+
+#gallery .gallery-item .card:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+#gallery .card .overlay {
+    background-color: rgba(96, 125, 139, 0.3);
+    opacity: 0;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    transition : all 0.4s ease-in-out;
+}
+
+#gallery .card .overlay:hover {
+    opacity:1;
+    color:#fff;
+}
+
+#gallery .gallery-item:nth-of-type(1) .card{
+    background-image: url('../images/port1.jpg');
+}
+
+#gallery .gallery-item:nth-of-type(2) .card{
+    background-image: url('../images/port2.jpg');
+}
+#gallery .gallery-item:nth-of-type(3) .card{
+    background-image: url('../images/port3.jpg');
+}
+#gallery .gallery-item:nth-of-type(4) .card{
+    background-image: url('../images/port4.jpg');
+}
+#gallery .gallery-item:nth-of-type(5) .card{
+    background-image: url('../images/port5.jpg');
+}
+#gallery .gallery-item:nth-of-type(6) .card{
+    background-image: url('../images/port6.jpg');
+}
+
+#cta {
+    background-image: url('../images/bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    height:80vh;
+    /* bs로 position-relative 걸어둠 */    
+}
+
+@media screen and (max-width:976px){
+    #cta {
+        height:140vh;
+    }
+
+    #testimony {
+        height: 100vh;        
+    }
+
+}
+
+#cta .section-content {
+    /* bs로 position-absolute 걸어둠 */
+    background-color: rgba(96, 125, 139, 0.3);
+    /* position-absolute이라서 높이와 너비 top과 left 모두 지정되어야 함 */
+    /* height: 100%;
+    width: 100%;이 두값도 bs class로써 지정*/
+    top:0;
+    left: 0;
+}
+
+#aboutus .image-lightbox .col img {
+    height: 200px;
+    width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
+    transition: all 0.3s ease-in-out;
+  }
+  #aboutus .image-lightbox .col img:hover {
+    transform: rotate(-10deg) scale(1.05, 1.05);
+    opacity: 1;
+  }
+  #aboutus .image-lightbox:hover img {
+    opacity: 0.6;
+    transform: scale(0.9, 0.9);
+  }
+
+#aboutus .accordion-button:active {
+    font-size: 1.2rem;
+    color: rgb(0, 255, 90);
+}
+
+#find-us {
+    position: relative;
+}
+
+#cta .find-us {
+    padding:1.5rem;
+    background-color: rgba(255,255,255,0.85);
+
+    transition: all 0.4s ease-in-out;
+}
+
+
+
+#cta .find-us:hover {
+    background-color: #fff;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.footer {
+    margin-top: -3rem;
+}
+
+.footer .social-icons .twitter-link {
+    color: #00acde;
+}
+.footer .social-icons .facebook-link {
+color: #3b5998;
+}
+.footer .social-icons .youtube-link {
+color: #cc181e;
+}
+
+
+
+#footer .sns img {
+    border-radius: 0.75rem;
+    transition:all .4s ease;
+}
+
+#footer .sns img:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+#footer .footer-1 .footer-logo {
+    width:40%;
+}
+
+#footer h4 {
+    color: #29407b;
+}
+
+#footer li {
+    font-size: 1.1rem;
+}
+
+#footer .footer-4 i,
+#footer .footer-4 p {
+    font-size: 1.1rem;
+}
+
+#footer .footer-2 {
+    padding-left: 4rem;
+}
+
+@media screen and (max-width:992px){
+    #footer .footer-2 {
+        padding-left: 1rem;
+    }
+}
+
+#footer .footer-4 .info-body {
+    text-indent: -0.75rem;
+    margin-left: 0.75rem;
+}
+
+#footer .vertical-bar {
+    border-left: 1px solid rgb(27, 27, 27);
+}
