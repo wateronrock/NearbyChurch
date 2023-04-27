@@ -9,9 +9,10 @@
 ?>
 <?php
     if(isset($_POST['uid'])) {
+        // $uid = sanitizeString($_POST['uid']);
         $uid = sanitizeString($_POST['uid']);
         
-        $result = queryMysql("SELECT * FROM members WHERE uid= '$uid'");
+        $result = $pdo->query("SELECT * FROM members WHERE uid= '$uid'");
         if($result->rowCount())
             // echo 명령어는 화면에 출력한다. signup.php의 폼에서 이름이 ajax.post로 지금의 파일
             // checkuser.php로 넘어와 결과값을 전달한다. 그 결과 값이 echo 이하이다. ajax로 받은 것이므로 signup.php의 폼

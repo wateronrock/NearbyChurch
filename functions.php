@@ -1,34 +1,21 @@
 <?php
+require_once "MemberDao.php";
+
 $host = 'localhost';
 $dbname = 'churchdb';
 $dbuser = 'root';
 $dbpass = '1234';
 $chrs = 'utf8mb4';
-$attr = "mysql:host=$host;dbname=$dbname;charset=$chrs";
-$opts = 
-[
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
-];
-// 아래 실행문은 이 파일이 불려지는 순간 실행되며 데이터베이스 접속이 시도된다.
-
-// $mdao = new Memberdao($attr, $dbuser,  $dbpass, $opts);
-$pdo = new PDO($attr, $dbuser, $dbpass, $opts);
+$mdao = new MemberDao($host, $dbname, $dbuser,$dbpass, $chrs);
+$pdo = $mdao->getPdo();
 
 define("MAIN_PAGE", "index.php");
-
 
 function createTable($name, $query) 
 {
     // sql문 create table 테이블이름(`id` CHAR(8) NOT NULL, `address` CHAR(20) NOT NULL)와 같은 형식
     queryMysql("create table if not exists $name($query)");
     echo "Table '$name' created or already exists.<br>";
-}
-// 함수 queryMysql(쿼리문)은 생성한 PDO 객체를 대상으로 내장 메소드 query(쿼리문)을 수행하는 함수이다.
-function queryMysql($query) {
-    global $pdo;
-    return $pdo->query($query);
 }
 
 function destroySession() {

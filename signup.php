@@ -1,10 +1,22 @@
 <?php
     require_once "header.php";
     // header.php에는 이미 functions.php가 도입되어 있으므로 각종 함수를 사용할 수 있다.
+    
+    if(isset($_POST['uid']) && isset($_POST['pass']) && isset($_POST['uname'])) {
+        $uid = sanitizeString($_POST['uid']);
+        $pass = sanitizeString($_POST['pass']);
+        $uname = sanitizeString($_POST['uname']);
+        if(isset($_POST['phone'])) $phone = sanitizeString($_POST['phone']);
+        if(isset($_POST['addr'])) $addr = sanitizeString($_POST['addr']);
+
+        $mdao->create_member($uid, $pass, $uname, $phone, $addr);
+    }
 ?>
 
 
 <script>
+
+
     function checkUser(user) {
     // user.value에 값이 없다면 #used에 그냥 스페이스 하나 출력하고 빠져나가라   
     // 아래에서 사용되는 매개변수는 this이며, 이는 input요소를 의미한다. 그 속성 value를 받아야 그 안의 값을 알 수 있다.
@@ -31,17 +43,16 @@
 }
 
 function checkPass() {
-    var password1 = $('#pass1').val();
-    var password2 = $('#pass2').val();
-
-    if (password1 === password2) {
-        $('#identical').html("<span class='text-success'>&nbsp; <i class='fa-solid fa-check'></i>".
-            "&nbsp; 패스워드가 일치합니다..</span><br><br>");
+    var password1 = document.getElementById("pass1").value;
+    var password2 = document.getElementById("pass2").value;
+    if (password1 !== password2) {
+      document.getElementById("identical").innerHTML = "<span class='text-danger'>&nbsp; <i class='fa-sharp fa-solid fa-x'></i>&nbsp; 비밀번호가 일치하지 않습니다.</span><br><br>";
     } else {
-        $('#identical').html("<span class='text-danger'>&nbsp; <i class='fa-sharp fa-solid fa-x'></i>".
-            "&nbsp; 패스워드가 일치하지 않습니다.</span><br><br>");
+      document.getElementById("identical").innerHTML = "<span class='text-success'>&nbsp; <i class='fa-solid fa-check'></i>&nbsp; 비밀번호가 일치합니다.</span><br><br>";
     }
 }
+
+
 </script>
     
 
@@ -58,16 +69,16 @@ function checkPass() {
                         <h4 class="card-title text-dark my-3 text-center">회원가입</h4>
                     </div>
                     <div class="card-body">
-                        <form action="signup.php" method="post">
+                        <form action="signup.php?r=<?=$randstr ?>" method="post">
                             <div class="mb-3">
                                 <input id='uid' name="uid" type="text" class="form-control" placeholder="아이디" onBlur='checkUser(this)'>
                             </div>
                             <div id="used"></div>
                             <div class="mb-3">
-                                <input id='pass1' name="pass1" type="password" class="form-control" placeholder="패스워드">
+                                <input id='pass1' name="pass" type="password" class="form-control" placeholder="패스워드">
                             </div>
                             <div class="mb-3">
-                                <input id='pass2' name="pass2" type="password" class="form-control" placeholder="패스워드 확인" >
+                                <input id='pass2' type="password" class="form-control" placeholder="패스워드 확인" onBlur='checkPass()' >
                             </div>
                             <div id="identical"></div>
                             <div class="mb-3">

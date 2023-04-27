@@ -1,9 +1,12 @@
 <?php
 session_start();
 require_once 'functions.php';
+// session_start_if_none();
+$randstr = substr(md5(rand()), 0, 7);
 
 $uid = sessionVar('uid');
 $uname = sessionVar('uname');
+
 ?>
 <!DOCTYPE html>
 <html lang="ko">
