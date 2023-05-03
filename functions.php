@@ -7,6 +7,8 @@ $dbuser = 'root';
 $dbpass = '1234';
 $chrs = 'utf8mb4';
 $mdao = new MemberDao($host, $dbname, $dbuser,$dbpass, $chrs);
+// 아래의 pdo는 부모로부터 물려받은 것이니 따로 생성하지 않는다. 
+// 어느 객체의 부모라도 동일하니, mdao에서 얻은 pdo는 모든 자식에서 얻은 pdo와 동일하다.
 $pdo = $mdao->getPdo();
 
 define("MAIN_PAGE", "index.php");

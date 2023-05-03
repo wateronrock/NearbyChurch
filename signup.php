@@ -30,7 +30,7 @@
     // 받아와서 #used 자리에 표시하라.
     // $.post(url[, data][, success(data, textStatus, jqXHR)][, dataType]) 반환 타입은 jqXHR이다.
     // jQuery함수이며 url에 정보를 post방식으로 요청, data는 서버로 보낼 data, success는 요청이 성공하면 실행될
-    // 콜백함수 이 때 매개변수 data는 응답받은 데이터이다. dataType은 서버에서 반환되는 데이터 사입이다.
+    // 콜백함수 이 때 매개변수 data는 응답받은 데이터이다. dataType은 서버에서 반환되는 데이터타입이다.
     // 기본 값은 지능형 추측(xml, json, script, html)
     $.post
     (
@@ -71,7 +71,7 @@ function checkPass() {
                     <div class="card-body">
                         <form action="signup.php?r=<?=$randstr ?>" method="post">
                             <div class="mb-3">
-                                <input id='uid' name="uid" type="text" class="form-control" placeholder="아이디" onBlur='checkUser(this)'>
+                                <input id='uid' name="uid" type="text" class="form-control" placeholder="아이디" onBlur='checkUser(this)' value="">
                             </div>
                             <div id="used"></div>
                             <div class="mb-3">

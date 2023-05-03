@@ -1,5 +1,6 @@
 <?php
 require_once "functions.php";
+require_once "BaseDao.php";
 // PDO를 통하여 객체를 생성하여 사용하는 특징
 // 1. prepare문에 ? 를 사용하는 것만으로도 SQL injection을 훌륭하게 방어하므로 
 // query()와 같이 따옴표를 삽입하는 메소드를 사용할 필요가 없다.
@@ -7,39 +8,9 @@ require_once "functions.php";
 // 3. pdo를 사용하면 데이터베이스와 연결이 끝나면 자동으로 끊기 때문에 close()메소드를 사용할 필요가 없다.
 // 4.각 테이블마다 독립적인 DAO 클래스를 만들어 쓰는 것이 좋으며, 
 // 5. pdo 객체를 꺼내 쓸 수 있도록 getPdo() 메소드를 만들어둔다.
-class MemberDao {
-    private $pdo;
-    private $host;
-    private $db_name;
-    private $username;
-    private $password;
-    private $charset;
-  
-    public function __construct($host, $db_name, $username, $password, $charset) {
-      $this->host = $host;
-      $this->db_name = $db_name;
-      $this->username = $username;
-      $this->password = $password;
-      $this->charset = $charset;
-  
-      $dsn = "mysql:host=$this->host;dbname=$this->db_name;charset=$this->charset";
-      $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-      ];
-  
-      try {
-        $this->pdo = new PDO($dsn, $this->username, $this->password, $options);
-      } catch (\PDOException $e) {
-        throw new \PDOException($e->getMessage(), (int)$e->getCode());
-      }
-    }
-
-    public function getPdo() {
-        return $this->pdo;
-    }
-  
+// 6. pdo생성과정이 반복되고 자원낭비가 일어나므로 BaseDao에서 생성하고 물려받아 공유한다.
+class MemberDao extends BaseDao {
+      
     public function create_member($uid, $pass, $uname, $phone, $addr) {
         try {
             $stmt = $this->pdo->prepare("INSERT INTO members (uid, pass, uname, phone, addr) VALUES (?, ?, ?, ?, ?)");
@@ -67,7 +38,12 @@ class MemberDao {
       $stmt = $this->pdo->prepare("DELETE FROM members WHERE uid = ?");
       $stmt->execute([$uid]);
     }
-  }
-  
 
+    // 아무 것도 입력받지 않는 메소드는 prepare문을 사용하지 않아도 된다.
+    public function getAllMembers() {
+      $stmt = $this->pdo->query("SELECT * FROM members ORDER BY uname ASC");
+      $results = $stmt->fetchAll();
+      return $results;
+    }
+  }
 ?>

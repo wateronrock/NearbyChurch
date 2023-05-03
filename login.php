@@ -13,14 +13,16 @@
         $msg = "모든 빈 칸을 채워주세요.";
     } else {
         $result = $mdao->read_member($uid);
-        $uname = $result['uname'];
-        if($result && $pass==$result['pass']) {
-            $_SESSION['uid'] = $uid;
-            $_SESSION['uname'] = $uname;
-            $msg = "로그인 되었습니다";
-        }elseif($pass != $result['pass']) {
-            $msg = "비밀번호가 일치하지 않습니다.";
-        }
+        if($result) {
+            $uname = $result['uname'];
+            if($result && $pass==$result['pass']) {
+                $_SESSION['uid'] = $uid;
+                $_SESSION['uname'] = $uname;
+                $msg = "로그인 되었습니다";
+            }elseif($pass != $result['pass']) {
+                $msg = "비밀번호가 일치하지 않습니다.";
+            }
+        }        
         else $msg = "검색결과가 없습니다. 회원등록을 해 주세요.";
     }
     
