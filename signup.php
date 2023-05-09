@@ -71,18 +71,18 @@ function checkPass() {
                     <div class="card-body">
                         <form action="signup.php?r=<?=$randstr ?>" method="post">
                             <div class="mb-3">
-                                <input id='uid' name="uid" type="text" class="form-control" placeholder="아이디" onBlur='checkUser(this)' value="">
+                                <input id='uid' name="uid" type="text" class="form-control" placeholder="" onBlur='checkUser(this)'>
                             </div>
                             <div id="used"></div>
                             <div class="mb-3">
-                                <input id='pass1' name="pass" type="password" class="form-control" placeholder="패스워드">
+                                <input id='pass1' name="pass" type="password" class="form-control" placeholder="패스워드" >
                             </div>
                             <div class="mb-3">
                                 <input id='pass2' type="password" class="form-control" placeholder="패스워드 확인" onBlur='checkPass()' >
                             </div>
                             <div id="identical"></div>
                             <div class="mb-3">
-                                <input name="uname" type="text" class="form-control" placeholder="사용자명(실명)">
+                                <input name="uname" type="text" class="form-control" placeholder="사용자명(실명)" >
                             </div>
                             <div class="mb-3">
                                 <input name="phone" type="text" class="form-control" placeholder="핸드폰번호 '-'없이 기입">

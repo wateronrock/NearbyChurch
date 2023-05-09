@@ -4,21 +4,22 @@
 
      // 에러 메시지 사용자 명 패스 모두 지운다
      $msg = $uid = $pass = "";
-     $uid = requestValue('uid');
-     $pass = requestValue('pass');
-     $uid = sanitizeString($uid);
-     $pass = sanitizeString($pass);
- 
+     $uid = sanitizeRequest('uid');
+     $pass = sanitizeRequest('pass');
+
     if($uid == "" || $pass == "") {
         $msg = "모든 빈 칸을 채워주세요.";
     } else {
         $result = $mdao->read_member($uid);
         if($result) {
             $uname = $result['uname'];
+            $grade = $result['grade'];
+            echo "등급은 $qual 입니다.";
             if($result && $pass==$result['pass']) {
                 $_SESSION['uid'] = $uid;
                 $_SESSION['uname'] = $uname;
-                $msg = "로그인 되었습니다";
+                $_SESSION['grade'] = $grade;
+                $msg = "로그인 되었습니다.";
             }elseif($pass != $result['pass']) {
                 $msg = "비밀번호가 일치하지 않습니다.";
             }

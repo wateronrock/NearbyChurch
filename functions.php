@@ -6,17 +6,19 @@ $dbname = 'churchdb';
 $dbuser = 'root';
 $dbpass = '1234';
 $chrs = 'utf8mb4';
-$mdao = new MemberDao($host, $dbname, $dbuser,$dbpass, $chrs);
+$basedao = new BaseDao($host, $dbname, $dbuser,$dbpass, $chrs);
 // 아래의 pdo는 부모로부터 물려받은 것이니 따로 생성하지 않는다. 
-// 어느 객체의 부모라도 동일하니, mdao에서 얻은 pdo는 모든 자식에서 얻은 pdo와 동일하다.
-$pdo = $mdao->getPdo();
+// 어느 객체의 부모라도 동일하니, basedao에서 얻은 pdo는 pdo 객체를 이용하는 모든 DAO에서 이용한다.
+// DAO객체를 중복해서 생성하지 않기 위해서이다.
+$pdo = $basedao->getPdo();
+$mdao = new MemberDao($pdo);
 
 define("MAIN_PAGE", "index.php");
 
 function createTable($name, $query) 
 {
     // sql문 create table 테이블이름(`id` CHAR(8) NOT NULL, `address` CHAR(20) NOT NULL)와 같은 형식
-    queryMysql("create table if not exists $name($query)");
+    $pdo->query("create table if not exists $name($query)");
     echo "Table '$name' created or already exists.<br>";
 }
 
@@ -94,7 +96,7 @@ function goNow($url) {
 // 아래에 기술되는 errorBack()이나 okGo() 함수는 일반적으로 로그인이나 회원가입을 할 때 
 // 오류메시지나 성공메시지를 보내고 원하는 페이지로 돌아가게 하는 필수기능
 
-function errorBack($msg){
+function goBack($msg){
 ?>
 <!DOCTYPE html>
 <html>
@@ -136,5 +138,11 @@ function okGo($msg, $url) {
 <?php
 // 다른 페이지로 이동한 후에는 이후의 코드가 무의미하므로 중지하라는 명령
 exit();
+}
+
+function sanitizeRequest($var){
+    $result = requestValue("$var");
+    $result = sanitizeString($result);
+    return $result;
 }
 ?>

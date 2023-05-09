@@ -9,9 +9,14 @@ require_once "BaseDao.php";
 // 4.각 테이블마다 독립적인 DAO 클래스를 만들어 쓰는 것이 좋으며, 
 // 5. pdo 객체를 꺼내 쓸 수 있도록 getPdo() 메소드를 만들어둔다.
 // 6. pdo생성과정이 반복되고 자원낭비가 일어나므로 BaseDao에서 생성하고 물려받아 공유한다.
-class MemberDao extends BaseDao {
+class MemberDao{
+    private $pdo;
+
+    public function __construct($pdo){
+      $this->pdo = $pdo;
+    }
       
-    public function create_member($uid, $pass, $uname, $phone, $addr) {
+    public function create_member($pdo) {
         try {
             $stmt = $this->pdo->prepare("INSERT INTO members (uid, pass, uname, phone, addr) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$uid, $pass, $uname, $phone, $addr]);

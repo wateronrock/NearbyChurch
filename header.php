@@ -1,11 +1,13 @@
 <?php
-session_start();
 require_once 'functions.php';
+session_start_if_none();
+
 // session_start_if_none();
 $randstr = substr(md5(rand()), 0, 7);
 
 $uid = sessionVar('uid');
 $uname = sessionVar('uname');
+$grade = sessionVar('grade');
 
 ?>
 <!DOCTYPE html>
@@ -32,17 +34,17 @@ $uname = sessionVar('uname');
 
  
  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js" 
-  referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"
+  referrerpolicy="no-referrer"></script> -->
     
 
   <title>가까운 교회 | 기독교한국침례회</title>
 </head>
 <body>  
   <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 shadow-lg sticky-top">
-    <div class="container">
+    <div class="container">    
       <a href="index.php" class="navbar-brand align-middle">
-        <h3 class="m-0">
+        <h3 class="m-0">          
           <img src="assets/images/church_logo.png" alt="Logo" height="36px">
           <div class="ms-3 float-end">
             <h6 id="church-branch" class="mb-0 mt-0">기독교한국침례회</h6>
@@ -91,6 +93,18 @@ $uname = sessionVar('uname');
               길찾기
             </a>
           </li>
+          <?php if($grade == "manager"): ?>
+            <li class="nav-item">
+            <a href="all_members.php" class="nav-link">
+              회원관리
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="index.php#find-us" class="nav-link">
+              헌금관리
+            </a>
+          </li>
+          <?php endif;?>
         </ul>
       </div>
     </div>

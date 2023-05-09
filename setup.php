@@ -8,11 +8,8 @@
 <?php
     require_once 'functions.php';
 
-    /*functions.php에 정의된 createTable($tableName, $query)함수는 다음과 같이 작동한다.
-    create table $tableName (`id` CHAR(8) NOT NULL, `address` CHAR(20) NOT NULL); 
-    이 때 ()안의 문구를 $query로 사용할 수 있다. 첫 매개변수는 테이블의 이름으로 따옴표로 둘러 싸여 있으며
-    나머지는 테이블의 구성 요소이며 역시 전체를 포함하는 따옴표로 둘러 싸여 있다. 마지막에 index(user(6))는 user
-    의 16자리 중에서 6자리만 인덱스로 등록하겠다는 말이다.*/
+    /*이 페이지는 관리자가 직접 페이지를 불러와서 사용한다. 예를 들면 https://www.example.com/setup.php 
+    와 같이 직접 주소창에 적어서 테이블을 세팅한다. 일일이 수작업으로 테이블을 만들지 않아도 된다.*/
 
     createTable(
         'members',
@@ -20,7 +17,8 @@
         pass varchar(16) NOT NULL,
         uname varchar(16) NOT NULL,
         phone char(12),
-        address varchar(22)'
+        addr varchar(40),
+        grade varchar(8)'
     );
 ?>
     <br>...done.
