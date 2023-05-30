@@ -24,8 +24,6 @@ $members = $mdao->getAllMembers();
             });
         });
     }
-    
-    
     );
 
     
@@ -74,45 +72,6 @@ $members = $mdao->getAllMembers();
       </div>
     </div>
 </section>
-
-<!-- 수정모달 -->
-<!-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">회원 정보 수정</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="edit-form">
-          <input type="hidden" class="form-control" name="uid" id="uidInput">
-          
-          <div class="form-group">
-            <label for="pass">비밀번호</label>
-            <input type="text" class="form-control" id="pass" name="pass">
-          </div>
-          <div class="form-group">
-            <label for="uname">이름</label>
-            <input type="text" class="form-control" id="uname" name="uname">
-          </div>
-          <div class="form-group">
-            <label for="phone">전화번호</label>
-            <input type="text" class="form-control" id="phone" name="phone">
-          </div>
-          <div class="form-group">
-            <label for="addr">주소</label>
-            <input type="text" class="form-control" id="addr" name="addr">
-          </div>
-          <button type="button" class="btn btn-primary edit-button  mt-1">수정</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- 수정모달끝 -->
-
-
 <?php
 require_once "footer.php";
 ?>

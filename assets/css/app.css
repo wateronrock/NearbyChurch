@@ -1,5 +1,8 @@
 /* Global */
-.section-content{
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.section-content{    
     padding: 4rem 0;
 }
 
@@ -163,18 +166,23 @@ css에서 정한 것만 되는 것 같다. */
 #testimony .testimony-card:hover {
     background-color: #fff;
 }
+/* 새로 만든 것 */
+/* #gallery .card, #gallery2 .card {
+    border-radius: 3rem;
+} */
 
-#gallery {
+/* 새로 만든 것 끝 */
+#gallery, #gallery2 {
     background-color: rgba(96, 125, 139, 0.35);
 }
 
-#gallery .divider {
+#gallery .divider, #gallery2 .divider {
     width : 10%;
     margin : 2rem auto;
     border-top: 2px solid #000;
 }
 
-#gallery .gallery-item .card {
+#gallery .gallery-item .card, #gallery2 .gallery-item .card{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -182,11 +190,11 @@ css에서 정한 것만 되는 것 같다. */
     transition: .35s ease-in-out;
 }
 
-#gallery .gallery-item .card:hover {
+#gallery .gallery-item .card:hover, #gallery2 .gallery-item .card:hover {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-#gallery .card .overlay {
+#gallery .card .overlay, #gallery2 .card .overlay {
     background-color: rgba(96, 125, 139, 0.3);
     opacity: 0;
     padding: 1.5rem;
@@ -194,10 +202,20 @@ css에서 정한 것만 되는 것 같다. */
     transition : all 0.4s ease-in-out;
 }
 
-#gallery .card .overlay:hover {
+#gallery .card .overlay:hover, #gallery2 .card .overlay:hover {
     opacity:1;
     color:#fff;
 }
+/* 새로 작성함 */
+.card-bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+  }
+  
+/* 새로 작성 끝 */
 
 #gallery .gallery-item:nth-of-type(1) .card{
     background-image: url('../images/port1.jpg');

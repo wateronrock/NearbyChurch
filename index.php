@@ -1,5 +1,6 @@
 <?php
-  require_once "header.php";  
+  require_once "header.php"; 
+  require_once "ImgDao.php";
 ?>
 
   <section id="top">
@@ -286,66 +287,47 @@
     </div>
   </section>
 
+  <?php
+    // 최신 순으로 이미지 데이터 가져오기 배열로 가져오기
+    $images = $imgdao->getAllImages();
+    // 요소 여섯개만 잘라낸다.
+    $newSix = array_slice($images,0, 6);
+  ?>
+
   <section id="gallery">
     <div class="section-content">
       <div class="container gallery">
         <div class="gallery-header text-center mb-5">
           <h1 class="display-4">기쁜 순간들</h1>
           <div class="divider"></div>
-          <p class="lead text-secondary">주 예수로 기뻐하는 우리의 시간을 기억하고자 합니다. 감사와 찬양이 넘치게 하소서. <a href="gallery_bulletin.php" > 더 보기</a></p>          
+          <p class="lead text-secondary">주 예수로 기뻐하는 우리의 시간을 기억하고자 합니다. 감사와 찬양이 넘치게 하소서. 
+          <a type="button" class="btn btn-primary btn-sm"href="all_photos.php" > 더 보기</a></p>          
         </div>
         <div class="row gallery-body">
+        <?php if($images && count($images) > 0): ?>
+        <?php foreach ($newSix as $image):?>
           <div class="col-md-4 col-sm-6 mb-4 gallery-item">
             <!-- 카드인데 경계선이 없고 안쪽 여백도 없다 -->
-            <div class="card card-body border-0 p-0">
-              <!-- .overlay는 커스텀이며, 나중에 부모의 크기가 css에서 지정되어야 h-100, w-100이 작동할 것이다 -->
-              <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
-                <h2 class="gallery-title">Gallery 1</h2>
-                <a class="link-warning text-decoration-none" href="#">View this gallery</a>
+            <div class="card card-body border-0 p-0 ">
+              <div class="card-bg rounded" style="background-image: 
+                url('assets/images/photos/<?= $image['file_name'] ?>');">
+                <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
+                <h2 class="gallery-title"><?= $image['title'] ?></h2>
+                <p class="leap">작성자: <?= $image['uploader']?>; 작성일: <?= $image['date']?></p>
+                <!-- <a class="link-warning text-decoration-none" href="img_view.php?id=<?= $image['id'] ?>">View this photo</a> -->
+                <form action="img_view.php" method="post">
+                  <input type="hidden" name="img_id" value="<?= $image['id'] ?>">
+                  <input type="submit" value="View this photo" class="text-warning" style="background-color:rgba(0, 0, 0, 0); border :none; ">
+                </form>
+              </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4 col-sm-6 mb-4 gallery-item">
-            <div class="card card-body border-0 p-0">
-              <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
-                <h2 class="gallery-title">Gallery 2</h2>
-                <a class="link-warning text-decoration-none" href="#">View this gallery</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 mb-4 gallery-item">
-            <div class="card card-body border-0 p-0">
-              <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
-                <h2 class="gallery-title">Gallery 3</h2>
-                <a class="link-warning text-decoration-none" href="#">View this gallery</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 mb-4 gallery-item">
-            <div class="card card-body border-0 p-0">
-              <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
-                <h2 class="gallery-title">Gallery 4</h2>
-                <a class="link-warning text-decoration-none" href="#">View this gallery</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 mb-4 gallery-item">
-            <div class="card card-body border-0 p-0">
-              <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
-                <h2 class="gallery-title">Gallery 5</h2>
-                <a class="link-warning text-decoration-none" href="#">View this gallery</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 mb-4 gallery-item">
-            <div class="card card-body border-0 p-0">
-              <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
-                <h2 class="gallery-title">Gallery 6</h2>
-                <a class="link-warning text-decoration-none" href="#">View this gallery</a>
-              </div>
-            </div>
-          </div>
-        </div>
+          </div>          
+          <?php endforeach; ?>
+          <?php else: 
+              echo "아무 것도 없습니다. 사진을 올려 주세요.";
+          ?>
+          <?php endif;  ?>
       </div>
     </div>
   </section>
@@ -360,7 +342,7 @@
               언제든 연락 주세요!
             </h3>
             <h2 class="display-5 text-light">
-              우리 인생의 모든 해결책은 오직 그리스도께 있습니다.
+              우리 인생의 해결책은 <br>오직 그리스도께 있습니다.
             </h2>
             <p class="lead text-light mb-4">요14:6 "예수께서 가라사대 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라"</p>
             <h1 class="mt-0 mb-4">

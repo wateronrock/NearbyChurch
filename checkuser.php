@@ -7,6 +7,7 @@
     // 통과하면 전체적으로 폼에 의하여 post로 자신의 페이지로 다시 값을 보내어 이름과 패스워드과 함께
     //  회원으로 등록완료한다.
 ?>
+<script>alert "checkuser.php로 들어왔습니다.";</script>
 <?php
     if(isset($_POST['uid'])) {
         // $uid = sanitizeString($_POST['uid']);

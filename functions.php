@@ -1,5 +1,8 @@
 <?php
+require_once "BaseDao.php";
 require_once "MemberDao.php";
+require_once "ImgDao.php";
+require_once "CommentDao.php";
 
 $host = 'localhost';
 $dbname = 'churchdb';
@@ -12,11 +15,14 @@ $basedao = new BaseDao($host, $dbname, $dbuser,$dbpass, $chrs);
 // DAO객체를 중복해서 생성하지 않기 위해서이다.
 $pdo = $basedao->getPdo();
 $mdao = new MemberDao($pdo);
+$imgdao = new ImgDao($pdo);
+$img_comdao = new CommentDao($pdo, "img_comments" );
 
 define("MAIN_PAGE", "index.php");
 
 function createTable($name, $query) 
 {
+    global $pdo;
     // sql문 create table 테이블이름(`id` CHAR(8) NOT NULL, `address` CHAR(20) NOT NULL)와 같은 형식
     $pdo->query("create table if not exists $name($query)");
     echo "Table '$name' created or already exists.<br>";
@@ -144,5 +150,11 @@ function sanitizeRequest($var){
     $result = requestValue("$var");
     $result = sanitizeString($result);
     return $result;
+}
+
+// 숫자를 세자리로 표현하되 모자란 자리수는 0으로 채운다
+function padNumber($number){
+    $paddedNumber = sprintf('%03d', $number);
+    return $paddedNumber;
 }
 ?>

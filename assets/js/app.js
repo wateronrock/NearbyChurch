@@ -26,3 +26,7 @@ if(slickSlide){
     });
 }
 
+function goBack() {
+    location.href = "all_photos.php";
+}
+
