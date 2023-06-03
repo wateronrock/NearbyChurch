@@ -1,5 +1,13 @@
 <?php
-require_once "header.php";
+
+// 이미지 파일의 경로 설정
+// $imagePath = $basePath . "/images/image.jpg";
+
+// 이미지 태그 출력
+// echo "<img src='$imagePath' alt='Image'>";
+
+require_once "../dir_manage.php";
+require_once $basePath."header.php";
 
 $members = $mdao->getAllMembers();
 ?>
@@ -73,5 +81,5 @@ $members = $mdao->getAllMembers();
     </div>
 </section>
 <?php
-require_once "footer.php";
+require_once $basePath."footer.php";
 ?>

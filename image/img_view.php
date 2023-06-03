@@ -1,5 +1,6 @@
 <?php
-require_once "header.php";
+require_once "../dir_manage.php";
+require_once $basePath."header.php";
 session_start_if_none();
 if(isset($_SESSION['uname'])){
     $uname = $_SESSION['uname'];
@@ -44,7 +45,7 @@ $img_comments = $img_comdao->getAllCommentsByParentId($img_id);
             <div class="col-md-8">
                 <div class="card my-3 rounded-3 shadow-lg">
                     <div class="card-body d-flex justify-content-center">
-                        <img class="img-fluid" src="assets/images/photos/<?= $result['file_name'] ?>" alt="">
+                        <img class="img-fluid" src="<?=$basePath?>assets/images/photos/<?= $result['file_name'] ?>" alt="">
                     </div>
                 </div>
             </div>
@@ -110,6 +111,7 @@ $img_comments = $img_comdao->getAllCommentsByParentId($img_id);
                                         data-bs-toggle="modal" data-bs-target="#commentEditModal">수정</button>                                  
                                     <form action="img_comment_delete.php" method="post" style="display: inline;">
                                         <input type="hidden" name="comment_id" value="<?= $comment['id'] ?>">
+                                        <input type="hidden" name="img_id" value="<?= $comment['img_id'] ?>">
                                         <button type="submit" class="btn btn-sm btn-danger">삭제</button>
                                     </form>
                                 </div>
@@ -180,5 +182,5 @@ $img_comments = $img_comdao->getAllCommentsByParentId($img_id);
 
 
 <?php
-require_once "footer.php";
+require_once $basePath."footer.php";
 ?>

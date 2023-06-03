@@ -1,7 +1,8 @@
 <?php
-require_once "header.php";
-require_once "ImgDao.php";
-require_once "CommentDao.php";
+require_once "../dir_manage.php";
+require_once $basePath."header.php";
+require_once $basePath."ImgDao.php";
+require_once $basePath."CommentDao.php";
 
 // 한 페이지에 표시할 이미지 개수
 $perPage = 6;
@@ -26,7 +27,7 @@ $imagesOnPage = array_slice($images, $start, $end - $start);
       <div class="container gallery">
         <div class="gallery-header text-center mb-5">
             <p class="lead text-secondary d-inline">주와 함께 가장 밝은 우리 순간들 &nbsp;&nbsp;</p>
-            <a href="img_upload.php" type="button" class="btn btn-primary btn-sm d-inline">그림 올리기</a>
+            <a href="../image/img_upload.php" type="button" class="btn btn-primary btn-sm d-inline">그림 올리기</a>
         </div>
         <div class="row gallery-body">
         <?php if($images && count($images) > 0): ?>
@@ -35,7 +36,7 @@ $imagesOnPage = array_slice($images, $start, $end - $start);
             <!-- 카드인데 경계선이 없고 안쪽 여백도 없다 -->
             <div class="card card-body border-0 p-0 ">
               <div class="card-bg rounded" style="background-image: 
-                url('assets/images/photos/<?= $image['file_name'] ?>');">
+                url('<?=$basePath?>assets/images/photos/<?= $image['file_name'] ?>');">
                 <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100 border-2">
                 <h2 class="gallery-title"><?= $image['title'] ?></h2>
                 <p class="leap">작성자: <?= $image['uploader']?>; 작성일: <?= $image['date']?></p>
@@ -71,5 +72,5 @@ $imagesOnPage = array_slice($images, $start, $end - $start);
   </section>
 
   <?php
-require_once "footer.php";
+require_once $basePath."footer.php";
   ?>

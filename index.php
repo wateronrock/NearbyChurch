@@ -1,6 +1,16 @@
 <?php
   require_once "header.php"; 
-  require_once "ImgDao.php";
+  
+  // 설교 표시
+  $sermons = $serdao->getAllSermons();
+  $newSixSer = array_slice($sermons, 0, 6);
+
+  // 그림표시
+  $images = $imgdao->getAllImages();
+  $newSixImg = array_slice($images,0, 6);
+
+  // 구글 드라이버 이용시 오디오 주소 베이스
+  $audioBasePath = "https://drive.google.com/uc?export=open&id=";
 ?>
 
   <section id="top">
@@ -68,12 +78,8 @@
                       <a href="logout.php" class="btn btn-primary btn-sm">로그아웃</a>
                     </p>
                   </div>
-
               <?php endif; ?>
             </div>
-
-
-            
           </div>
         </div>
       </div>
@@ -138,98 +144,54 @@
     <div class="section-content">
       <div class="container services">
         <div class="services-header text-center mb-5">
-          <h1 class="display-5">주일말씀</h1>
+          <h1 class="display-5">설 교</h1>
           <div class="divider"></div>
           <p class="lead text-secondary service-text">
             시119:105 "주의 말씀은 내 발에 등이요 내 길에 빛이니이다"
           </p>
         </div>
         <div id="slick-slide" class="services-body">
-          <div class="services-col mx-2 my-3">
-            <!-- #top요소에서는 .card.card-body가 같은 div에서 선언되었지만, 지금은 .card와 .card-body가 분리되어 선언되었고
+          <!-- #top요소에서는 .card.card-body가 같은 div에서 선언되었지만, 지금은 .card와 .card-body가 분리되어 선언되었고
             그 중간에 그림이 하나 들어온다. 그림이 이 사이에 옴을 기억하자. -->
             <!-- 카드는 부모 너비를 따른다. 높이는 컨텐츠의 높이이다. 그래서 커라우젤 js가 없다면 그냥 전체 너비를 차지하는 카드에 불과하다. 
-            화면에 몇개를 보일지 app.js에서 설정함에 따라 크기가 결정된다. -->
+            화면에 몇개를 보일지 app.js에서 설정함에 따라 크기가 결정된다. --> 
+            <?php
+
+            ?>
+          
+        <?php if($sermons && count($sermons) > 0): 
+        $i =0;
+        ?>
+        <?php foreach ($newSixSer as $sermon):
+        $i+=1;
+        
+        $passage = abbreviateString($sermon['passage'], 400);
+        if(mb_strlen($passage)<66) {
+          $passage = $passage."<br><br>";
+        }
+        ?>
+          <div class="services-col mx-2 my-3">                      
             <div class="card">
               <a href="#">
-                <img src="assets/images/port1.jpg" alt="" class="card-img-top">
+                <img src="assets/images/port<?=$i?>.jpg" alt="" class="card-img-top">
               </a>
               <div class="card-body">
-                <h4 class="card-title">Slide title</h4>
-                <p class="card-text fw-light mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ea molestiae cumque quidem enim est accusamus ut dicta nesciunt. Expedita?
-                </p>
-                <a href="#" class="btn btn-primary">View more...</a>
+                <h4 class="card-title"><?=$sermon['title'] ?></h4>
+                <p class="card-text fw-light mb-4"><?=$passage ?></p>
+                <audio controls>
+                  <source src="<?=$audioBasePath?><?=$sermon['audio_id']?>" type="audio/mp3">
+                  Your browser does not support the audio element.
+                </audio>
+
               </div>
             </div>
-          </div>
-          <div class="services-col mx-2 my-3">
-            <div class="card">
-              <a href="#">
-                <img src="assets/images/port2.jpg" alt="" class="card-img-top">
-              </a>
-              <div class="card-body">
-                <h4 class="card-title">Slide title</h4>
-                <p class="card-text fw-light mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ea molestiae cumque quidem enim est accusamus ut dicta nesciunt. Expedita?
-                </p>
-                <a href="#" class="btn btn-primary">View more...</a>
-              </div>
-            </div>
-          </div><div class="services-col mx-2 my-3">
-            <div class="card">
-              <a href="#">
-                <img src="assets/images/port3.jpg" alt="" class="card-img-top">
-              </a>
-              <div class="card-body">
-                <h4 class="card-title">Slide title</h4>
-                <p class="card-text fw-light mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ea molestiae cumque quidem enim est accusamus ut dicta nesciunt. Expedita?
-                </p>
-                <a href="#" class="btn btn-primary">View more...</a>
-              </div>
-            </div>
-          </div><div class="services-col mx-2 my-3">
-            <div class="card">
-              <a href="#">
-                <img src="assets/images/port4.jpg" alt="" class="card-img-top">
-              </a>
-              <div class="card-body">
-                <h4 class="card-title">Slide title</h4>
-                <p class="card-text fw-light mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ea molestiae cumque quidem enim est accusamus ut dicta nesciunt. Expedita?
-                </p>
-                <a href="#" class="btn btn-primary">View more...</a>
-              </div>
-            </div>
-          </div><div class="services-col mx-2 my-3">
-            <div class="card">
-              <a href="#">
-                <img src="assets/images/port5.jpg" alt="" class="card-img-top">
-              </a>
-              <div class="card-body">
-                <h4 class="card-title">Slide title</h4>
-                <p class="card-text fw-light mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ea molestiae cumque quidem enim est accusamus ut dicta nesciunt. Expedita?
-                </p>
-                <a href="#" class="btn btn-primary">View more...</a>
-              </div>
-            </div>
-          </div><div class="services-col mx-2 my-3">
-            <div class="card">
-              <a href="#">
-                <img src="assets/images/port6.jpg" alt="" class="card-img-top">
-              </a>
-              <div class="card-body">
-                <h4 class="card-title">Slide title</h4>
-                <p class="card-text fw-light mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet ea molestiae cumque quidem 
-                  enim est accusamus ut dicta nesciunt. Expedita?
-                </p>
-                <a href="#" class="btn btn-primary">View more...</a>
-              </div>
-            </div>
-          </div>
+          </div>          
+          <?php endforeach; ?>
+          <?php else: 
+              echo "등록된 설교가 없습니다.";
+          ?>
+          <?php endif;  ?>
+
         </div>
       </div>
     </div>
@@ -287,13 +249,6 @@
     </div>
   </section>
 
-  <?php
-    // 최신 순으로 이미지 데이터 가져오기 배열로 가져오기
-    $images = $imgdao->getAllImages();
-    // 요소 여섯개만 잘라낸다.
-    $newSix = array_slice($images,0, 6);
-  ?>
-
   <section id="gallery">
     <div class="section-content">
       <div class="container gallery">
@@ -301,11 +256,11 @@
           <h1 class="display-4">기쁜 순간들</h1>
           <div class="divider"></div>
           <p class="lead text-secondary">주 예수로 기뻐하는 우리의 시간을 기억하고자 합니다. 감사와 찬양이 넘치게 하소서. 
-          <a type="button" class="btn btn-primary btn-sm"href="all_photos.php" > 더 보기</a></p>          
+          <a type="button" class="btn btn-primary btn-sm" href="image/all_photos.php" > 더 보기</a></p>          
         </div>
         <div class="row gallery-body">
         <?php if($images && count($images) > 0): ?>
-        <?php foreach ($newSix as $image):?>
+        <?php foreach ($newSixImg as $image):?>
           <div class="col-md-4 col-sm-6 mb-4 gallery-item">
             <!-- 카드인데 경계선이 없고 안쪽 여백도 없다 -->
             <div class="card card-body border-0 p-0 ">
@@ -315,7 +270,7 @@
                 <h2 class="gallery-title"><?= $image['title'] ?></h2>
                 <p class="leap">작성자: <?= $image['uploader']?>; 작성일: <?= $image['date']?></p>
                 <!-- <a class="link-warning text-decoration-none" href="img_view.php?id=<?= $image['id'] ?>">View this photo</a> -->
-                <form action="img_view.php" method="post">
+                <form action="image/img_view.php" method="post">
                   <input type="hidden" name="img_id" value="<?= $image['id'] ?>">
                   <input type="submit" value="View this photo" class="text-warning" style="background-color:rgba(0, 0, 0, 0); border :none; ">
                 </form>

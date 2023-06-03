@@ -1,5 +1,6 @@
 <?php
-require_once "functions.php";
+require_once "../dir_manage.php";
+require_once $basePath."functions.php";
 $img_id = sanitizeRequest('img_id');
 $comment_id = sanitizeRequest('comment_id');
 $comment = sanitizeRequest('comment');

@@ -1,8 +1,10 @@
 <?php
+require_once "dir_manage.php";
 require_once "BaseDao.php";
 require_once "MemberDao.php";
 require_once "ImgDao.php";
 require_once "CommentDao.php";
+require_once "SermonDao.php";
 
 $host = 'localhost';
 $dbname = 'churchdb';
@@ -17,6 +19,7 @@ $pdo = $basedao->getPdo();
 $mdao = new MemberDao($pdo);
 $imgdao = new ImgDao($pdo);
 $img_comdao = new CommentDao($pdo, "img_comments" );
+$serdao = new SermonDao($pdo);
 
 define("MAIN_PAGE", "index.php");
 
@@ -74,6 +77,17 @@ function showProfile($user) {
         echo(stripslashes($row['text'])."<br style='clear:left;'><br>");
     } else echo "<p>Nothing to see here, yet</p><br>";
         
+}
+
+function abbreviateString($string, $maxLength) {    
+    $abbreviatedString = $string;
+    
+    if (strlen($string) > $maxLength) {
+        $abbreviatedString = substr($string, 0, $maxLength - 3);
+        $abbreviatedString = trim($abbreviatedString)."&nbsp;...";
+    }
+    
+    return $abbreviatedString;
 }
 
 function session_start_if_none() {

@@ -1,5 +1,6 @@
 <?php
-require_once "header.php";
+require_once "../dir_manage.php";
+require_once $basePath ."header.php";
 $uid = sanitizeRequest('uid');
 $pass = sanitizeRequest('pass');
 $uname = sanitizeRequest('uname');
@@ -72,5 +73,5 @@ if($uid && !$pass && !$uname) {
 </section>
 
 <?php
-require_once "footer.php";
+require_once $basePath."footer.php";
 ?>

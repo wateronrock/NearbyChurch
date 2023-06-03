@@ -1,8 +1,12 @@
 <?php
-require_once 'functions.php';
+require_once "dir_manage.php";
+require_once $basePath.'functions.php';
 session_start_if_none();
 
-// session_start_if_none();
+
+
+
+
 $randstr = substr(md5(rand()), 0, 7);
 
 $uid = sessionVar('uid');
@@ -11,7 +15,7 @@ $grade = sessionVar('grade');
 
 ?>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,7 +34,7 @@ $grade = sessionVar('grade');
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" 
   integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" 
   crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="assets/css/app.css">    
+  <link rel="stylesheet" href="<?=$basePath?>assets/css/app.css">    
 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js" -->
   <!-- referrerpolicy="no-referrer"></script> -->
@@ -40,9 +44,9 @@ $grade = sessionVar('grade');
 <body>  
   <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 shadow-lg sticky-top">
     <div class="container">    
-      <a href="index.php" class="navbar-brand align-middle">
+      <a href="<?=$basePath?>index.php" class="navbar-brand align-middle">
         <h3 class="m-0">          
-          <img src="assets/images/church_logo.png" alt="Logo" height="36px">
+          <img src="<?=$basePath?>assets/images/church_logo.png" alt="Logo" height="36px">
           <div class="ms-3 float-end">
             <h6 id="church-branch" class="mb-0 mt-0">기독교한국침례회</h6>
             <h4 id="church-name" class="mt-0 mb-0">가까운교회</h4>
@@ -56,48 +60,48 @@ $grade = sessionVar('grade');
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a href="index.php#top" class="nav-link">
+            <a href="<?=$basePath?>index.php#top" class="nav-link">
               홈
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#intro" class="nav-link">
+            <a href="<?=$basePath?>index.php#intro" class="nav-link">
               소개
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#services" class="nav-link">
+            <a href="<?=$basePath?>index.php#services" class="nav-link">
               말씀
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#testimony" class="nav-link">
+            <a href="<?=$basePath?>index.php#testimony" class="nav-link">
               간증
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#gallery" class="nav-link">
+            <a href="<?=$basePath?>index.php#gallery" class="nav-link">
               최신소식
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#cta" class="nav-link">
+            <a href="<?=$basePath?>index.php#cta" class="nav-link">
               연락처
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#find-us" class="nav-link">
+            <a href="<?=$basePath?>index.php#find-us" class="nav-link">
               길찾기
             </a>
           </li>
           <?php if($grade == "manager"): ?>
             <li class="nav-item">
-            <a href="all_members.php" class="nav-link">
+            <a href="<?=$basePath?>member/all_members.php" class="nav-link">
               회원관리
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.php#find-us" class="nav-link">
+            <a href="<?=$basePath?>index.php#find-us" class="nav-link">
               헌금관리
             </a>
           </li>

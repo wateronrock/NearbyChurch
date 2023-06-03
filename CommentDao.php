@@ -44,7 +44,7 @@ class CommentDao {
 
     // 부모 아이디로 자식 글을 모두 뽑아 내는 메소드
     public function getAllCommentsByParentId($parentId) {
-        $stmt = $this->pdo->prepare("SELECT * FROM ".$this->tableName." WHERE ".$this->id." = ? ORDER BY date DESC");
+        $stmt = $this->pdo->prepare("SELECT * FROM ".$this->tableName." WHERE ".$this->id." = ? ORDER BY id DESC");
         $stmt->bindParam(1, $parentId);
         $stmt->execute();
         return $stmt->fetchAll();

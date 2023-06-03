@@ -1,5 +1,6 @@
 <?php
-require_once "header.php";
+require_once "../dir_manage.php";
+require_once $basePath."header.php";
 if(!$uid || !$uname){
     okGo("사진을 올리시려면 로그인 해주세요!", "index.php");
 } else {
@@ -58,5 +59,5 @@ if(!$uid || !$uname){
 
 <?php } ?>
 <?php
-require_once "footer.php";
+require_once $basePath."footer.php";
 ?>

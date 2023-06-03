@@ -49,6 +49,18 @@
         code CHAR(5) NOT NULL,
         image_file CHAR(7) NOT NULL'
     );
+
+    createTable(
+        'sermons',
+        'id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        preacher VARCHAR(3) NOT NULL,
+        title VARCHAR(20) NOT NULL,
+        passage VARCHAR(1500) NOT NULL,
+        date DATE NOT NULL,
+        file_name VARCHAR(20) NOT NULL,
+        file_addr VARCHAR(100) NOT NULL'
+    );
+
     $query = $pdo->query("SELECT * FROM emoticons");
     $result = $query->fetchAll();
     if(count($result)==0){
@@ -69,6 +81,8 @@
     } else {
         echo "Emoticons inserted already";
     }
+
+
     
     
 ?>
