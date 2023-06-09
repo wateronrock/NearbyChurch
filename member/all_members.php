@@ -50,8 +50,8 @@ $members = $mdao->getAllMembers();
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                <th>ID</th>
-                                <th>비밀번호</th>
+                                <th>회차</th>
+                                <th></th>
                                 <th>이름</th>
                                 <th>전화번호</th>
                                 <th>주소</th>

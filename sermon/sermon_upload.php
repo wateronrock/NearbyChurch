@@ -41,7 +41,7 @@ if(!$isFirst) {
                                 <input name="title" type="text" class="form-control" placeholder="설교제목" >
                             </div>
                             <div class="mb-3">
-                                <textarea name="passage" class="form-control w-100"rows="10" placeholder="설교본문"></textarea>
+                                <textarea name="passage" class="form-control w-100"rows="5" placeholder="설교본문"></textarea>
                             </div>
                             <div class="mb-3">
                                 <input name="date" type="date" class="form-control" placeholder="설교일" >

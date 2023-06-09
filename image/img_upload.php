@@ -2,7 +2,7 @@
 require_once "../dir_manage.php";
 require_once $basePath."header.php";
 if(!$uid || !$uname){
-    okGo("사진을 올리시려면 로그인 해주세요!", "index.php");
+    okGo("사진을 올리시려면 로그인 해주세요!", $basePath."index.php");
 } else {
     if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_FILES['image'])) {
         // 폼 데이터 처fl
@@ -11,7 +11,8 @@ if(!$uid || !$uname){
         $title = sanitizeRequest('title');
         $description = sanitizeRequest('description');
 
-        // 파일 업로드 처리
+        // 파일 업로드 처리 이 때 $file은 파일업로드 경로를 타고 생성된
+        //  $_FILE['image']이다. 'image'는 파일업로드시에 붙이 name속성이다.
         $file = $_FILES['image'];
         $fileName = $imgdao->saveImageFile($file);
         $imgid = $imgdao->insertImage($uploader, $title, $description, $date, $fileName);

@@ -11,6 +11,10 @@
 
   // 구글 드라이버 이용시 오디오 주소 베이스
   $audioBasePath = "https://drive.google.com/uc?export=open&id=";
+
+  // 간증 표시
+  $testimonies = $tstdao->getAllTestimonies();
+  $newThreeTst = array_slice($testimonies, 0, 3);
 ?>
 
   <section id="top">
@@ -155,9 +159,7 @@
             그 중간에 그림이 하나 들어온다. 그림이 이 사이에 옴을 기억하자. -->
             <!-- 카드는 부모 너비를 따른다. 높이는 컨텐츠의 높이이다. 그래서 커라우젤 js가 없다면 그냥 전체 너비를 차지하는 카드에 불과하다. 
             화면에 몇개를 보일지 app.js에서 설정함에 따라 크기가 결정된다. --> 
-            <?php
-
-            ?>
+            
           
         <?php if($sermons && count($sermons) > 0): 
         $i =0;
@@ -165,23 +167,24 @@
         <?php foreach ($newSixSer as $sermon):
         $i+=1;
         
-        $passage = abbreviateString($sermon['passage'], 400);
-        if(mb_strlen($passage)<66) {
-          $passage = $passage."<br><br>";
-        }
+        $passage = abbreviateString($sermon['passage'], 100);
+        
         ?>
           <div class="services-col mx-2 my-3">                      
             <div class="card">
               <a href="#">
                 <img src="assets/images/port<?=$i?>.jpg" alt="" class="card-img-top">
               </a>
-              <div class="card-body">
+              <div class="card-body row">
                 <h4 class="card-title"><?=$sermon['title'] ?></h4>
                 <p class="card-text fw-light mb-4"><?=$passage ?></p>
-                <audio controls>
+                <!-- <div class="col-12"> -->
+                <audio controls class="d-block mx-auto mb-3">
                   <source src="<?=$audioBasePath?><?=$sermon['audio_id']?>" type="audio/mp3">
                   Your browser does not support the audio element.
                 </audio>
+                <!-- </div> -->
+                
 
               </div>
             </div>
@@ -204,7 +207,11 @@
         <!-- 슬로건 카드는 md 이상에서는 6/12 차지하는 너비를 가진다. -->
         <div class="col-lg-6">
           <div class="card card-body testimony-card pt-4 pb-4 ps-5 pe-5">
-            <h1 class="mb-3">우리의 간증 ...</h1>
+            <div class="d-flex align-items-center">
+              <h1 class="d-inline mb-3 me-auto"> 우리의 간증 ... </h1>
+              <a type="button" class="btn btn-primary btn-sm me-3" href="testimony/all_testimonies.php">전체 보기</a>
+              <a type="button" class="btn btn-primary btn-sm" href="testimony/tst_upload.php">간증 쓰기</a>              
+            </div>
             <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp; 내 귀가 열려 주의 음성을 듣게 하시고, 주의 말씀으로 내가 웃게도 하시고, 내가 울게도 하시며, 내가 기쁘게도 하시고, 내가 애통하게도 하옵소서. 주의 음성이 들리매 반가워, 내가 춤추게도 하시며, 내가 가슴을 치게도 하옵소서.</p>
             <p class="lead">마11:17 "이르되 우리가 너희를 향하여 피리를 불어도 너희가 춤추지 않고 우리가 슬피 울어도 너희가 가슴을 치지 아니하였다 함과 같도다"</p>
           </div>
@@ -217,33 +224,24 @@
     <div class="section-content">
       <div class="container friendship">
         <div class="row">
+          <?php if($newThreeTst): ?>
+          <?php foreach($newThreeTst as $tst):
+            $content = $tst['content'];
+            $clean_content = str_replace('\r\n', '<br>', $content);
+            $shorTst = abbreviateString($clean_content, 200);
+          ?>
           <div class="col-md-4 mb-3">
             <div class="card card-body shadow border-0 friendship-card">
-              <h4 class="card-title mb-3">
-                <span class="fw-bold">1</span>
-                Feature 1
-              </h4>
-              <p class="card-text fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quis, necessitatibus aliquid consectetur inventore corrupti eaque quas aliquam optio magni.</p>
+              <h5 class="card-title mb-3">
+                <span class="fw-bold"><?=$tst['title']?></span>
+                <span class="float-end fs-6"><?=$tst['author']?>&nbsp;&nbsp;<?=$tst['date']?></span>
+              </h5>
+              <p class="card-text fw-light"><?=$shorTst?></p>
             </div>
           </div>
-          <div class="col-md-4 mb-3">
-            <div class="card card-body shadow border-0 friendship-card">
-              <h4 class="card-title mb-3">
-                <span class="fw-bold">2</span>
-                Feature 2
-              </h4>
-              <p class="card-text fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quis, necessitatibus aliquid consectetur inventore corrupti eaque quas aliquam optio magni.</p>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card card-body shadow border-0 friendship-card">
-              <h4 class="card-title mb-3">
-                <span class="fw-bold">3</span>
-                Feature 3
-              </h4>
-              <p class="card-text fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates quis, necessitatibus aliquid consectetur inventore corrupti eaque quas aliquam optio magni.</p>
-            </div>
-          </div>
+          <?php endforeach; ?>
+          <?php endif; ?>
+          
         </div>
       </div>
     </div>
@@ -497,6 +495,33 @@
       </div>
     </div>    
   </section>
+
+  <script>
+    // 카드 div 요소의 id 배열
+var cardIds = ["card01", "card02", "card03", "card04", "card05", "card06"];
+
+// 최대 높이 변수 초기화
+var maxHeight = 0;
+
+// 각 div의 높이를 확인하고 최대값 갱신
+for (var i = 0; i < cardIds.length; i++) {
+  var cardId = cardIds[i];
+  var cardElement = document.getElementById(cardId);
+  var cardHeight = cardElement.offsetHeight;
+
+  if (cardHeight > maxHeight) {
+    maxHeight = cardHeight;
+  }
+}
+
+// 모든 div 요소의 높이를 최대값에 일치시킴
+for (var i = 0; i < cardIds.length; i++) {
+  var cardId = cardIds[i];
+  var cardElement = document.getElementById(cardId);
+  cardElement.style.height = maxHeight + "px";
+}
+
+  </script>
 
 <?php
   require_once "footer.php";

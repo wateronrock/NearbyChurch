@@ -66,6 +66,7 @@ function checkUser(user) {
     // });
 }
 
+
 function checkPass() {
     var password1 = document.getElementById("pass1").value;
     var password2 = document.getElementById("pass2").value;

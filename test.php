@@ -1,6 +1,15 @@
 <?php
-$string = "막1:15 \"이르시되 때가 찼고 하나님의 나라가 가까이 왔으니 회개하고 복음을 믿으라 하시더라\"";
-$strNumber = mb_strlen($string);
-echo $strNumber;
+$array = array(
+    'key1' => 'value1',
+    'key2' => 'value2',
+    'key3' => 'value3',
+    'key4' => 'value4',
+    'key5' => 'value5',
+  );
+  
+  $key = key($array);
+  $key = key($array);
+  $key = key($array);
+  echo $key[0];
 
 ?>

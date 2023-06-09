@@ -30,3 +30,41 @@ function goBack() {
     history.back();
 }
 
+function showConfirm() {
+    var confirmed = confirm("정말로 삭제하시겠습니까?");
+    return confirmed;
+}
+
+function convertToKorean(event) {
+    var inputElement = event.target;
+    var outputElement = inputElement.nextElementSibling;
+
+    var number = parseInt(inputElement.value);
+    var korean = numberToKorean(number);
+
+    outputElement.innerText = korean;
+}
+
+function numberToKorean(number) {
+    var units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+    var positions = ["", "십", "백", "천", "만", "십만", "백만", "천만", "억", "십억", "백억", "천억", "조", "십조", "백조", "천조"];
+    
+    var korean = "";
+    var positionIndex = 0;
+
+    while (number > 0) {
+        var digit = number % 10;
+        var unit = units[digit];
+
+        if (digit > 0) {
+            var position = positions[positionIndex];
+            korean = unit + position + korean;
+        }
+
+        number = Math.floor(number / 10);
+        positionIndex++;
+    }
+
+    return korean;
+}
+

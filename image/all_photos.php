@@ -1,8 +1,6 @@
 <?php
 require_once "../dir_manage.php";
 require_once $basePath."header.php";
-require_once $basePath."ImgDao.php";
-require_once $basePath."CommentDao.php";
 
 // 한 페이지에 표시할 이미지 개수
 $perPage = 6;

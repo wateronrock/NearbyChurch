@@ -16,10 +16,11 @@
         'members',
         'uid varchar(16) NOT NULL PRIMARY KEY,
         pass varchar(16) NOT NULL,
-        uname varchar(16) NOT NULL,
+        uname varchar(16) NOT NULL ,
         phone char(12),
         addr varchar(40),
-        grade varchar(8)'
+        grade varchar(8),
+        UNIQUE (uname)'
     );
 
     createTable(
@@ -58,9 +59,35 @@
         passage VARCHAR(1500) NOT NULL,
         date DATE NOT NULL,
         file_name VARCHAR(20) NOT NULL,
-        file_addr VARCHAR(100) NOT NULL'
+        file_id VARCHAR(50) NOT NULL'
     );
 
+    createTable(
+        'testimony',
+        'id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        author VARCHAR(10) NOT NULL,
+        title VARCHAR(40) NOT NULL,
+        content VARCHAR(2000) NOT NULL,
+        date DATE NOT NULL,
+        file_addr VARCHAR(50)'
+    );
+
+    createTable(
+        'offerings',
+        'id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(16) NOT NULL,        
+        tithe DECIMAL,
+        weekly DECIMAL,
+        thanks DECIMAL,
+        mission DECIMAL,
+        construct DECIMAL,
+        relief DECIMAL,
+        thousand DECIMAL,
+        festive DECIMAL,
+        etc DECIMAL,
+        date DATE NOT NULL'
+        
+    );
     $query = $pdo->query("SELECT * FROM emoticons");
     $result = $query->fetchAll();
     if(count($result)==0){

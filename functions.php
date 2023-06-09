@@ -1,10 +1,12 @@
 <?php
 require_once "dir_manage.php";
 require_once "BaseDao.php";
-require_once "MemberDao.php";
-require_once "ImgDao.php";
+require_once "member/MemberDao.php";
+require_once "image/ImgDao.php";
 require_once "CommentDao.php";
-require_once "SermonDao.php";
+require_once "sermon/SermonDao.php";
+require_once "testimony/TestimonyDao.php";
+require_once "offering/OfferingDao.php";
 
 $host = 'localhost';
 $dbname = 'churchdb';
@@ -20,6 +22,8 @@ $mdao = new MemberDao($pdo);
 $imgdao = new ImgDao($pdo);
 $img_comdao = new CommentDao($pdo, "img_comments" );
 $serdao = new SermonDao($pdo);
+$tstdao = new TestimonyDao($pdo);
+$offerdao = new OfferingDao($pdo);
 
 define("MAIN_PAGE", "index.php");
 
@@ -82,11 +86,13 @@ function showProfile($user) {
 function abbreviateString($string, $maxLength) {    
     $abbreviatedString = $string;
     
-    if (strlen($string) > $maxLength) {
-        $abbreviatedString = substr($string, 0, $maxLength - 3);
-        $abbreviatedString = trim($abbreviatedString)."&nbsp;...";
+    if (mb_strlen($string) > $maxLength) {
+        $abbreviatedString = mb_substr($string, 0, $maxLength - 3, "UTF-8")."...";        
     }
     
+    if(mb_strlen($abbreviatedString)<66){
+        $abbreviatedString = $abbreviatedString . "<br><br>";
+    }
     return $abbreviatedString;
 }
 

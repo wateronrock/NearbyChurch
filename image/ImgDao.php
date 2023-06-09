@@ -1,4 +1,7 @@
 <?php
+// require_once "../dir_manage.php";
+// require_once $basePath ."functions.php";
+
 class ImgDao {
     private $pdo;
 

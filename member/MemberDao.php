@@ -1,6 +1,6 @@
 <?php
-require_once "functions.php";
-require_once "BaseDao.php";
+// require_once "../dir_manage.php";
+// require_once $basePath. "functions.php";
 // PDO를 통하여 객체를 생성하여 사용하는 특징
 // 1. prepare문에 ? 를 사용하는 것만으로도 SQL injection을 훌륭하게 방어하므로 
 // query()와 같이 따옴표를 삽입하는 메소드를 사용할 필요가 없다.
@@ -16,7 +16,7 @@ class MemberDao{
       $this->pdo = $pdo;
     }
       
-    public function create_member($pdo) {
+    public function create_member($uid, $pass, $uname, $phone, $addr) {
         try {
             $stmt = $this->pdo->prepare("INSERT INTO members (uid, pass, uname, phone, addr) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$uid, $pass, $uname, $phone, $addr]);
