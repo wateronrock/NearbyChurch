@@ -3,7 +3,7 @@ require_once "../dir_manage.php";
 require_once $basePath."header.php";
 
 if(!$uid || !$uname){
-    okGo("간증을 작성하시려면 로그인 해주세요.", $basePath."index.php");
+    okGo("간증을 읽으시려면 로그인 해주세요.", $basePath."index.php");
 }
 
 // 페이지네이션 시작
@@ -34,7 +34,10 @@ $tstOnPage = array_slice($testimonies, $start, $end - $start);
             <div class="col-md-10 offset-md-1">
                 <div class="card my-3 rounded-3 shadow-lg">
                     <div class="my-3">
-                        <h4 class="card-title text-dark my-3 text-center">간증목록</h4>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h4 class="card-title text-dark my-3 text-center me-3">간증목록</h4>
+                            <a type="button" class="btn btn-primary btn-sm" href="tst_upload.php">간증 쓰기</a> 
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">

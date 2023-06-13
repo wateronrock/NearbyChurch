@@ -16,9 +16,13 @@ if(!$uid || !$uname){
         $file = $_FILES['image'];
         $fileName = $imgdao->saveImageFile($file);
         $imgid = $imgdao->insertImage($uploader, $title, $description, $date, $fileName);
+       
+        
 
         if($fileName && $imgid>0){
             okGo("사진이 등록되었습니다.", "all_photos.php");
+        } else {
+            okGo("사진 등록에 실패하였습니다.","all_photos.php");
         }
 
     }
@@ -43,8 +47,7 @@ if(!$uid || !$uname){
                                 <textarea name="description" class="w-100" id="description" cols="100" rows="2" placeholder="최대 20자까지 입력"></textarea>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="image">사진:</label>
-                                <input type="file" class="form-control-file" id="image" name="image">
+                                <input type="file" class="form-control-file" name="image">
                             </div>
                             <p class="mb-3">
                                 <button class="btn btn-primary w-100" type="submit">업로드</button>

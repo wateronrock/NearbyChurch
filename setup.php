@@ -88,6 +88,18 @@
         date DATE NOT NULL'
         
     );
+
+    createTable(
+        'tst_comments',
+        'id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        tst_id INT NOT NULL,
+        writer VARCHAR(20) NOT NULL,
+        comment VARCHAR(250) NOT NULL,
+        date DATE NOT NULL,
+        FOREIGN KEY (tst_id) REFERENCES testimony(id) ON DELETE CASCADE'
+    );
+
+    
     $query = $pdo->query("SELECT * FROM emoticons");
     $result = $query->fetchAll();
     if(count($result)==0){

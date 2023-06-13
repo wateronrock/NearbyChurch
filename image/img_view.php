@@ -6,6 +6,10 @@ if(isset($_SESSION['uname'])){
     $uname = $_SESSION['uname'];
 }
 
+if(isset($_SESSION['grade'])){
+    $grade = $_SESSION['grade'];
+}
+
 
 // 이미지의 id를 저장한다
 $img_id = sanitizeRequest('img_id');
@@ -23,20 +27,6 @@ $img_comments = $img_comdao->getAllCommentsByParentId($img_id);
 
 
 ?>
-
-<script>
-//     $(document).ready(function() {
-//   // 모달 버튼 클릭 이벤트
-//   $('#commentModalBtn').click(function() {
-//     // 조건에 따른 모달 열기
-//     if (someCondition) {
-//       $('#myModal').modal('show');
-//     }
-//   });
-// });
-
-
-</script>
 <section id="photoview">
     <div class="section-content">
       <div class="container">
@@ -67,7 +57,16 @@ $img_comments = $img_comdao->getAllCommentsByParentId($img_id);
                         </tr>
                         <tr>
                             <td class="text-center"colspan="2">
-                                <a type="button" class="btn btn-primary btn-sm w-100" onclick="goBack()">돌아가기</a>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a type="button" class="btn btn-primary btn-sm me-3" onclick="goBack()">돌아 가기</a>
+                                    <?php if($uname == $result['uploader'] || $grade == "manager"): ?>
+                                    <form action="img_delete.php" method="POST">
+                                        <input type="hidden" name="id" value="<?=$img_id?>">
+                                        <button type="submit" class="btn btn-primary btn-sm" onclick="return showConfirm();">그림 삭제</button>
+                                    </form>
+                                    <?php endif;?>
+                                    
+                                </div>                                
                             </td>
                         </tr>
                         <?php endif; ?>
@@ -112,7 +111,7 @@ $img_comments = $img_comdao->getAllCommentsByParentId($img_id);
                                     <form action="img_comment_delete.php" method="post" style="display: inline;">
                                         <input type="hidden" name="comment_id" value="<?= $comment['id'] ?>">
                                         <input type="hidden" name="img_id" value="<?= $comment['img_id'] ?>">
-                                        <button type="submit" class="btn btn-sm btn-danger">삭제</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return showConfirm();">삭제</button>
                                     </form>
                                 </div>
 

@@ -208,7 +208,7 @@
         <div class="col-lg-6">
           <div class="card card-body testimony-card pt-4 pb-4 ps-5 pe-5">
             <div class="d-flex align-items-center">
-              <h1 class="d-inline mb-3 me-auto"> 우리의 간증 ... </h1>
+              <h1 class="mb-3 me-auto"> 우리의 간증 ... </h1>
               <a type="button" class="btn btn-primary btn-sm me-3" href="testimony/all_testimonies.php">전체 보기</a>
               <a type="button" class="btn btn-primary btn-sm" href="testimony/tst_upload.php">간증 쓰기</a>              
             </div>

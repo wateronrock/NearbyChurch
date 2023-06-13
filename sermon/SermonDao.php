@@ -25,7 +25,8 @@ class SermonDao {
 
     public function updateSermon($id, $preacher, $title, $passage, $date, $audio_id) {
         $query = $this->pdo->prepare("UPDATE sermons SET preacher = ?, title = ?, passage = ?, date = ?, audio_id = ? WHERE id = ?");
-        $query->execute([$preacher, $title, $passage, $date, $audio_id, $id]);
+        $result = $query->execute([$preacher, $title, $passage, $date, $audio_id, $id]);
+        return $result;
     }
 
     public function deleteSermon($id) {

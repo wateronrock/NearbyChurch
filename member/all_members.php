@@ -11,28 +11,7 @@ require_once $basePath."header.php";
 
 $members = $mdao->getAllMembers();
 ?>
-<script>
-    // 삭제 관련
-    document.addEventListener('DOMContentLoaded', function() {
-        var deleteButtons = document.querySelectorAll('.delete-button');
-        deleteButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-            var id = this.dataset.id;
-            if(confirm('정말 삭제하시겠습니까?')) {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    location.reload();
-                }
-                };
-                xhr.open('POST', 'member_delete.php');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('uid=' + id);
-            }
-            });
-        });
-    }
-    );
+
 
     
 </script>
@@ -50,8 +29,8 @@ $members = $mdao->getAllMembers();
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                <th>회차</th>
-                                <th></th>
+                                <th>아이디</th>
+                                <th>패스워드</th>
                                 <th>이름</th>
                                 <th>전화번호</th>
                                 <th>주소</th>

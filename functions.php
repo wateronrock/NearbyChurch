@@ -21,6 +21,7 @@ $pdo = $basedao->getPdo();
 $mdao = new MemberDao($pdo);
 $imgdao = new ImgDao($pdo);
 $img_comdao = new CommentDao($pdo, "img_comments" );
+$tst_comdao = new CommentDao($pdo, "tst_comments");
 $serdao = new SermonDao($pdo);
 $tstdao = new TestimonyDao($pdo);
 $offerdao = new OfferingDao($pdo);
